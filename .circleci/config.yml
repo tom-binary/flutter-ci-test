@@ -21,7 +21,17 @@ jobs:
 
       - run:
           name: Run the application tests
-          command: flutter test
+          command: flutter test --coverage
+
+      - run:
+          name: Upload coverage
+          command: |
+              bash <(curl -s https://codecov.io/bash)
+
+      - run:
+          name: Code analysis
+          command: |
+              dartanalyzer --options analysis_options.yaml --fatal-warnings lib
 
       - run:
           name: Disable predexing for build speed
