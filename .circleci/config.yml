@@ -49,8 +49,7 @@ jobs:
           command: flutter build apk 
 
       - save_cache:
-          keys:
-              - android-sdk
+          key: android-sdk
           paths:
               - /opt/android-sdk-linux
 
