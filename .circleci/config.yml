@@ -24,6 +24,23 @@ jobs:
           command: flutter test
 
       - run:
+          name: Disable predexing for build speed
+          command: |
+              mkdir -p ~/.gradle && cat <<'EOF' > ~/.gradle/init.gradle
+			  allprojects {
+				  project.plugins.whenPluginAdded { plugin ->
+					  if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)) {
+						  println "Disable pre-dexing for module ${project.name}"
+						  project.android.dexOptions.preDexLibraries = false
+					  } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+						  println "Disable pre-dexing for module ${project.name}"
+						  project.android.dexOptions.preDexLibraries = false
+					  }
+				  }
+			  }
+              EOF
+
+      - run:
           name: Build the Android version
           command: flutter build apk 
 
