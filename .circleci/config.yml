@@ -53,6 +53,7 @@ jobs:
       - restore_cache:
           keys:
               - android-sdk-licenses
+              - gradle
 
       - run:
           name: Build the Android version
@@ -62,6 +63,10 @@ jobs:
           key: android-sdk-licenses
           paths:
               - /opt/android-sdk-linux/licenses
+      - save_cache:
+          key: gradle
+          paths:
+              - ~/.gradle
 
       - run:
           name: Copy APK
