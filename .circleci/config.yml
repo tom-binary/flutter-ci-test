@@ -40,9 +40,19 @@ jobs:
 			  }
               EOF
 
+      - restore_cache:
+          keys:
+              - android-sdk
+
       - run:
           name: Build the Android version
           command: flutter build apk 
+
+      - save_cache:
+          keys:
+              - android-sdk
+          paths:
+              - /opt/android-sdk-linux
 
       - run:
           name: Copy APK
