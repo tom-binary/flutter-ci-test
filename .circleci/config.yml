@@ -42,16 +42,16 @@ jobs:
 
       - restore_cache:
           keys:
-              - android-sdk
+              - android-sdk-licenses
 
       - run:
           name: Build the Android version
           command: flutter build apk 
 
       - save_cache:
-          key: android-sdk
+          key: android-sdk-licenses
           paths:
-              - /opt/android-sdk-linux
+              - /opt/android-sdk-linux/licenses
 
       - run:
           name: Copy APK
